@@ -24,9 +24,22 @@ document.addEventListener("DOMContentLoaded", function () {
             plugins: {
                 legend: {
                     position: 'bottom'
+                },
+                title: {
+                    display: true,
+                text: 'Distribución de Habitaciones',
+                align: 'center',
+                font: {
+                    size: 18,
+                    weight: 'bold'
+                },
+                padding: {
+                    top: 10,
+                    bottom: 10
                 }
             }
         }
+    }
     });
 
     
@@ -70,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Imagen y descripción dinámica de habitaciones
+
     const selectHabitacion = document.getElementById('habitacion');
     const imagenHabitacion = document.getElementById('imagenHabitacion');
     const descripcionHabitacion = document.getElementById('descripcionHabitacion');
@@ -90,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // Inicializar descripción al cargar
+ 
     function actualizarInfo(tipo) {
         imagenHabitacion.src = info[tipo].imagen;
         imagenHabitacion.alt = `Habitación ${tipo}`;
@@ -102,4 +115,30 @@ document.addEventListener("DOMContentLoaded", function () {
     selectHabitacion.addEventListener('change', () => {
         actualizarInfo(selectHabitacion.value);
     });
+
+    const formDisponibilidad = document.getElementById("formDisponibilidad");
+const respuestaDisponibilidad = document.getElementById("respuestaDisponibilidad");
+
+formDisponibilidad.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const fecha = document.getElementById("fechaConsulta").value;
+    const tipo = document.getElementById("tipoConsulta").value;
+
+    if (!fecha) {
+        respuestaDisponibilidad.innerHTML = `<p style="color: red;">Por favor selecciona una fecha.</p>`;
+        return;
+    }
+
+    const disponibles = habitaciones[tipo];
+
+    if (disponibles > 0) {
+        respuestaDisponibilidad.innerHTML = `<p>✅ Hay ${disponibles} habitaciones <strong>${tipo}</strong> disponibles para el día <strong>${fecha}</strong> ✅.</p>`;
+    } else {
+        respuestaDisponibilidad.innerHTML = `<p style="color: red;">❌ No hay habitaciones ${tipo} disponibles para el ${fecha}. ❌</p>`;
+    }
 });
+});
+
+
+

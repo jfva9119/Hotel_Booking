@@ -10,11 +10,12 @@
 <body>
     <header>
         <img src="img/hotelbooking.jpg" alt="Logo del Hotel" style="width: 250px; height: auto;">
-        <h1>Reserva de Hotel</h1>
+        <h1>Hotel Booking - Reserva de Hotel</h1>
     </header>
 
     <main>
-        <form id="formReserva">
+        <h2>Formulario de reservacion</h2>
+        <form id="formReserva" autocomplete="off">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" required>
 
@@ -38,13 +39,33 @@
 
             <button type="submit">Reservar</button>
         </form>
+    
+    <h2>Verificar disponibilidad por fecha</h2>
+        <form id="formDisponibilidad">
+            <label for="fechaConsulta">Fecha:</label>
+            <input type="date" id="fechaConsulta" required><br>
+
+            <label for="tipoConsulta">Tipo de habitación:</label>
+            <select id="tipoConsulta">
+                <option value="sencilla">Sencilla</option>
+                <option value="doble">Doble</option>
+                <option value="suite">Suite</option>
+            </select><br>
+
+        <button type="submit">Consultar</button>
+    </form>
+
+    <div id="respuestaDisponibilidad"></div>
 
         <div id="resultado"></div>
 
         <section class="grafico">
-            <h2>Habitaciones disponibles</h2>
+            
             <canvas id="habitacionesChart"></canvas>
         </section>
+
+        <hr>
+
     </main>
 
     <script src="script.js"></script>

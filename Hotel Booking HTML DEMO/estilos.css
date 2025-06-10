@@ -1,0 +1,96 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    background: linear-gradient(135deg, #f0f2f5, #dbe9f4);
+    color: #333;
+    min-height: 100vh;
+}
+
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 40px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+header img {
+    width: 70px;
+}
+
+header h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    max-width: 600px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+
+form {
+    width: 95%;
+    margin-bottom: 30px;
+}
+
+input, select, button {
+    display: block;
+    width: 95%;
+    margin: 10px 0;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+#resultado {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.grafico {
+    width: 100%;
+}
+
+.info-habitacion {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.info-habitacion img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.info-habitacion p {
+    font-size: 16px;
+    color: #555;
+}

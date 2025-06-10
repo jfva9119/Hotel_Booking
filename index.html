@@ -1,73 +1,79 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Reserva de Hotel</title>
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="estilos.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <!-- Encabezado -->
     <header>
-        <img src="img/hotelbooking.jpg" alt="Logo del Hotel" style="width: 250px; height: auto;">
+        <img src="img/hotelbooking.jpg" alt="Logo del Hotel" style="width: 250px; height: auto;" />
         <h1>Hotel Booking - Reserva de Hotel</h1>
     </header>
 
+    <!-- Contenido principal -->
     <main>
-        <h2>Formulario de reservacion</h2>
-        <form id="formReserva" autocomplete="off">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" required>
+        <!-- Formulario de reservación -->
+        <section>
+            <h2>Formulario de reservación</h2>
+            <form id="formReserva" autocomplete="off">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" required />
 
-            <label for="fecha">Fecha de llegada:</label>
-            <input type="date" id="fecha" required>
+                <label for="fecha">Fecha de llegada:</label>
+                <input type="date" id="fecha" required />
 
-            <label for="noches">Número de noches:</label>
-            <input type="number" id="noches" required>
+                <label for="noches">Número de noches:</label>
+                <input type="number" id="noches" required />
 
-            <label for="habitacion">Tipo de habitación:</label>
-            <select id="habitacion">
-                <option value="sencilla">Sencilla</option>
-                <option value="doble">Doble</option>
-                <option value="suite">Suite</option>
-            </select>
-            <div id="infoHabitacion" class="info-habitacion">
-    <img id="imagenHabitacion" src="img/sencilla.jpg" alt="Habitación Sencilla">
-    <p id="descripcionHabitacion">Una habitación sencilla ideal para una persona, cómoda y funcional.</p>
-</div>
+                <label for="habitacion">Tipo de habitación:</label>
+                <select id="habitacion">
+                    <option value="sencilla">Sencilla</option>
+                    <option value="doble">Doble</option>
+                    <option value="suite">Suite</option>
+                </select>
 
+                <!-- Imagen y descripción de la habitación -->
+                <div id="infoHabitacion" class="info-habitacion">
+                    <img id="imagenHabitacion" src="img/sencilla.jpg" alt="Habitación Sencilla" />
+                    <p id="descripcionHabitacion">
+                        Una habitación sencilla ideal para una persona, cómoda y funcional.
+                    </p>
+                </div>
 
-            <button type="submit">Reservar</button>
-        </form>
-    
-    <h2>Verificar disponibilidad por fecha</h2>
-        <form id="formDisponibilidad">
-            <label for="fechaConsulta">Fecha:</label>
-            <input type="date" id="fechaConsulta" required><br>
+                <button type="submit">Reservar</button>
+                <div id="resultado"></div>
+            </form>
+        </section>
 
-            <label for="tipoConsulta">Tipo de habitación:</label>
-            <select id="tipoConsulta">
-                <option value="sencilla">Sencilla</option>
-                <option value="doble">Doble</option>
-                <option value="suite">Suite</option>
-            </select><br>
+        <!-- Formulario para consultar disponibilidad -->
+        <section>
+            <h2>Consultar o cancelar una reserva</h2>
+                <form id="formGestionReserva">
+                    <label for="nombreConsulta">Nombre:</label>
+                    <input type="text" id="nombreConsulta" required>
 
-        <button type="submit">Consultar</button>
-    </form>
+                    <label for="fechaConsulta2">Fecha de llegada:</label>
+                    <input type="date" id="fechaConsulta2" required>
 
-    <div id="respuestaDisponibilidad"></div>
+                    <button type="submit">Buscar Reserva</button>
+                    <div id="resultadoConsulta"></div>
+                </form>
+        </section>
 
-        <div id="resultado"></div>
-
+        <!-- Gráfico de disponibilidad -->
         <section class="grafico">
-            
+            <h2 style="text-align: center;">Habitaciones disponibles</h2>
             <canvas id="habitacionesChart"></canvas>
         </section>
 
-        <hr>
-
+        <hr />
     </main>
 
+    <!-- Script principal -->
     <script src="script.js"></script>
 </body>
 </html>

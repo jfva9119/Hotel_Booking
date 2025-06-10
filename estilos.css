@@ -1,3 +1,4 @@
+/* ======= Estilos Generales ======= */
 body {
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
@@ -6,7 +7,7 @@ body {
     min-height: 100vh;
 }
 
-
+/* ======= Encabezado ======= */
 header {
     display: flex;
     align-items: center;
@@ -25,7 +26,7 @@ header h1 {
     margin: 0;
 }
 
-
+/* ======= Contenedor Principal ======= */
 main {
     display: flex;
     flex-direction: column;
@@ -39,13 +40,20 @@ main {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-
+/* ======= Formularios ======= */
 form {
     width: 95%;
+    background-color: #ffffffcc;
+    padding: 20px;
     margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
 }
 
-input, select, button {
+input,
+select,
+button {
     display: block;
     width: 95%;
     margin: 10px 0;
@@ -68,15 +76,18 @@ button:hover {
     background-color: #2980b9;
 }
 
+/* ======= Resultados ======= */
 #resultado {
     margin-bottom: 20px;
     font-weight: bold;
 }
 
+/* ======= Gráfico ======= */
 .grafico {
     width: 100%;
 }
 
+/* ======= Información de la habitación ======= */
 .info-habitacion {
     margin-top: 20px;
     text-align: center;
@@ -93,13 +104,4 @@ button:hover {
 .info-habitacion p {
     font-size: 16px;
     color: #555;
-}
-
-form {
-    background-color: #ffffffcc;
-    padding: 20px;
-    margin-bottom: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    max-width: 500px;
 }

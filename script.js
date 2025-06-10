@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // ======= Inventario inicial de habitaciones =======
     const habitaciones = {
         sencilla: 12,
         doble: 8,
         suite: 5
     };
 
+    // ======= Configuración del gráfico (Chart.js) =======
     const ctx = document.getElementById('habitacionesChart').getContext('2d');
     const chart = new Chart(ctx, {
         type: 'pie',
@@ -27,22 +29,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
                 title: {
                     display: true,
-                text: 'Distribución de Habitaciones',
-                align: 'center',
-                font: {
-                    size: 18,
-                    weight: 'bold'
-                },
-                padding: {
-                    top: 10,
-                    bottom: 10
+                    text: 'Distribución de Habitaciones',
+                    align: 'center',
+                    font: {
+                        size: 18,
+                        weight: 'bold'
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 10
+                    }
                 }
             }
         }
-    }
     });
 
-    
+    // ======= Formulario de Reserva =======
     const form = document.getElementById("formReserva");
     const resultado = document.getElementById("resultado");
 
@@ -56,13 +58,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let reservas = JSON.parse(localStorage.getItem('reservas')) || [];
 
-      
+        // Verificar si ya existe una reserva con el mismo nombre y fecha
         const existe = reservas.some(r => r.nombre === nombre && r.fecha === fecha);
         if (existe) {
             resultado.innerHTML = `<p style="color: red;">⚠️ Ya existe una reserva para ${nombre} el ${fecha}. ⚠️</p>`;
             return;
         }
 
+        // Validar disponibilidad
         if (habitaciones[tipo] > 0) {
             habitaciones[tipo]--;
             chart.data.datasets[0].data = [
@@ -83,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-
+    // ======= Info dinámica de habitaciones (imagen + descripción) =======
     const selectHabitacion = document.getElementById('habitacion');
     const imagenHabitacion = document.getElementById('imagenHabitacion');
     const descripcionHabitacion = document.getElementById('descripcionHabitacion');
@@ -103,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
- 
     function actualizarInfo(tipo) {
         imagenHabitacion.src = info[tipo].imagen;
         imagenHabitacion.alt = `Habitación ${tipo}`;
@@ -116,29 +118,54 @@ document.addEventListener("DOMContentLoaded", function () {
         actualizarInfo(selectHabitacion.value);
     });
 
-    const formDisponibilidad = document.getElementById("formDisponibilidad");
-const respuestaDisponibilidad = document.getElementById("respuestaDisponibilidad");
+    // ======= Consulta de Reservas y/o Cancelarlas  =======
+   const formGestion = document.getElementById("formGestionReserva");
+    const resultadoConsulta = document.getElementById("resultadoConsulta");
 
-formDisponibilidad.addEventListener("submit", function (e) {
-    e.preventDefault();
+    formGestion.addEventListener("submit", function (e) {
+        e.preventDefault();
 
-    const fecha = document.getElementById("fechaConsulta").value;
-    const tipo = document.getElementById("tipoConsulta").value;
+    const nombre = document.getElementById("nombreConsulta").value.trim();
+    const fecha = document.getElementById("fechaConsulta2").value;
 
-    if (!fecha) {
-        respuestaDisponibilidad.innerHTML = `<p style="color: red;">Por favor selecciona una fecha.</p>`;
-        return;
-    }
+        let reservas = JSON.parse(localStorage.getItem('reservas')) || [];
 
-    const disponibles = habitaciones[tipo];
+    const indice = reservas.findIndex(r => r.nombre === nombre && r.fecha === fecha);
 
-    if (disponibles > 0) {
-        respuestaDisponibilidad.innerHTML = `<p>✅ Hay ${disponibles} habitaciones <strong>${tipo}</strong> disponibles para el día <strong>${fecha}</strong> ✅.</p>`;
+    if (indice !== -1) {
+        const reserva = reservas[indice];
+        resultadoConsulta.innerHTML = `
+            <p>🔍 Se encontró una reserva:</p>
+            <ul>
+                <li><strong>Nombre:</strong> ${reserva.nombre}</li>
+                <li><strong>Fecha:</strong> ${reserva.fecha}</li>
+                <li><strong>Noches:</strong> ${reserva.noches}</li>
+                <li><strong>Tipo:</strong> ${reserva.habitacion}</li>
+            </ul>
+            <button id="btnCancelarReserva">❌ Cancelar Reserva</button>
+        `;
+
+        // Evento para cancelar
+        document.getElementById("btnCancelarReserva").addEventListener("click", () => {
+            reservas.splice(indice, 1);
+            localStorage.setItem('reservas', JSON.stringify(reservas));
+
+            // Restaurar disponibilidad
+            habitaciones[reserva.habitacion]++;
+            chart.data.datasets[0].data = [
+                habitaciones.sencilla,
+                habitaciones.doble,
+                habitaciones.suite
+            ];
+            chart.update();
+
+            resultadoConsulta.innerHTML = `<p style="color: green;">✅ La reserva fue cancelada con éxito.</p>`;
+        });
+
     } else {
-        respuestaDisponibilidad.innerHTML = `<p style="color: red;">❌ No hay habitaciones ${tipo} disponibles para el ${fecha}. ❌</p>`;
+        resultadoConsulta.innerHTML = `<p style="color: red;">❌ No se encontró ninguna reserva con ese nombre y fecha.</p>`;
     }
 });
+
+
 });
-
-
-
